@@ -17,6 +17,22 @@ DELETE FROM IntercorrenciaCuida WHERE IntercorrenciaCuida.cpf = p_cpf AND Interc
 DELETE FROM HorarioCuida WHERE HorarioCuida.cpf = p_cpf AND HorarioCuida.idCuidador = p_idCuidador;
 END;
 
+DELIMITER $$
+CREATE PROCEDURE insertAtedimento ( IN n_dia DATE, IN n_hora TIME, IN n_cpf CHAR(11), IN n_crm VARCHAR(11), IN n_estado VARCHAR (15), IN n_nomeClinica VARCHAR(30),
+IN n_logradouro  VARCHAR(30), IN n_cidade VARCHAR(25), IN n_bairro VARCHAR(20))
+BEGIN
+INSERT INTO Atendimento(dia, hora, cpf, crm, estado, nomeClinica, logradouro, cidade, bairro)
+VALUES (n_dia, n_hora, n_cpf, n_crm, n_nomeClinica, n_logradouro, n_cidade, n_bairro);
+END;
+
+DELIMITER $$
+CREATE PROCEDURE atualizaAtendimento ( IN a_dia DATE, IN a_hora TIME, IN a_cpf CHAR(11), IN a_crm VARCHAR(11), IN a_estado VARCHAR (15), IN a_nomeClinica VARCHAR(30),
+IN a_logradouro  VARCHAR(30), IN a_cidade VARCHAR(25), IN a_bairro VARCHAR(20))
+BEGIN
+UPDATE Atendimento
+SET Atendimento.dia = a_dia, Atendimento.hora = a_hora, Atendimento.cpf = a_cpf, Atendimento.crm = a_crm, Atendimento.estado = a_estado, Atendimento.nomeClinica = a_nomeClinica,
+Atendimento.logradouro = a_logradouro, Atendimento.cidade = a_cidade, Atendimento.bairro = a_bairro;
+END;
 
 DELIMITER $$
 CREATE PROCEDURE insert_atendimentoMedico (IN pcd_crm VARCHAR(11), IN pcd_especialidade VARCHAR(20), IN pcd_cpf CHAR(11), IN pcd_prNome CHAR(30),IN pcd_sobrenome VARCHAR(30),
