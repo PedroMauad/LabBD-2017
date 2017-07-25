@@ -187,3 +187,16 @@ Where Familiar.cpfPaciente = cpf AND Familiar.idRelacionado = Consanguineo.idRel
 RETURN nomeCompleto;
 END //
 DELIMITER ;
+
+DELIMITER $$
+CREATE FUNCTION removeAtendimento (d_cpf CHAR(11), d_crm VARCHAR(11))
+BEGIN
+DECLARE existe int
+SELECT COUNT(*) INTO existe from Atendimento WHERE d_cpf = Atendimento.cpf AND d_crm = Atendimento.crm;
+	IF(existe = 0) THEN
+		RETURN 'CPF ou CRM não existente.'
+	ELSE
+		DELETE FROM Atendimento WHERE Atendimento.cpf = d_cpf AND Atendimento.crm = d_crm;
+		RETURN 'Registro apagado.';
+	END IF;
+END;
